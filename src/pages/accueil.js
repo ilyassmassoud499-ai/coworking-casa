@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import transparent from "../assets/transparent.jpg"
 
+import image1 from "../assets/bureau-privee.jpg" 
+import image2 from "../assets/casa-coworking.jpg" 
+import image3 from "../assets/open-espace.jpg" 
+import image4 from "../assets/salle-reunionA.jpg" 
+import image5 from "../assets/salle-reunionB.jpg" 
+
 
 const Accueil = () => {
     return ( 
@@ -25,7 +31,7 @@ const Accueil = () => {
             
             </div>
             <div>
-                <img src="casa-coworking.jpg"     alt="" width={500} />
+                <img src={image2}     alt="" width={500} />
             </div>
 
             </div>
@@ -44,7 +50,7 @@ const Accueil = () => {
                       <div className="col-md-3">
   <div className="card h-100 shadow-sm">
     <img
-      src="bureau-privee.jpg"
+      src={image1}
       className="card-img-top"
       style={{ height: "180px", objectFit: "cover" }}
       alt=""
@@ -72,7 +78,7 @@ const Accueil = () => {
         <div className="col-md-3">
   <div className="card h-100 shadow-sm">
     <img
-      src="salle-reunionA.jpg"
+    src={image4}
       className="card-img-top"
       style={{ height: "180px", objectFit: "cover" }}
       alt=""
@@ -97,7 +103,7 @@ Salle de réunion fonctionnelle, adaptée aux réunions d’équipe, présentati
         <div className="col-md-3">
   <div className="card h-100 shadow-sm">
     <img
-      src="salle-reunionB.jpg"
+      src={image5}
       className="card-img-top"
       style={{ height: "180px", objectFit: "cover" }}
       alt=""
@@ -121,7 +127,7 @@ Salle de réunion moderne et spacieuse, conçue pour les réunions importantes, 
         <div className="col-md-3">
   <div className="card h-100 shadow-sm">
     <img
-      src="open-espace.jpg"
+      src={image3}
       className="card-img-top"
       style={{ height: "180px", objectFit: "cover" }}
       alt=""
