@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/coworking-casa/static/js/main.93ff3d69.js",
+    "static/media/formulaireJs.jpg": "/coworking-casa/static/media/formulaireJs.9785f56bb78d660d2507.jpg",
+    "static/media/transparent.jpg": "/coworking-casa/static/media/transparent.95e50b52f0f01f3db7ec.jpg",
+    "index.html": "/coworking-casa/index.html",
+    "main.93ff3d69.js.map": "/coworking-casa/static/js/main.93ff3d69.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.93ff3d69.js"
+  ]
+}
