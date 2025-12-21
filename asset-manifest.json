@@ -1,6 +1,7 @@
 {
   "files": {
-    "main.js": "/coworking-casa/static/js/main.6f3be01a.js",
+    "main.css": "/coworking-casa/static/css/main.3982bb5f.css",
+    "main.js": "/coworking-casa/static/js/main.65606997.js",
     "static/media/casa-coworking.jpg": "/coworking-casa/static/media/casa-coworking.e7c347a334049c35cad3.jpg",
     "static/media/formulaireJs.jpg": "/coworking-casa/static/media/formulaireJs.9785f56bb78d660d2507.jpg",
     "static/media/bureau-privee.jpg": "/coworking-casa/static/media/bureau-privee.29def421707533c5935d.jpg",
@@ -9,9 +10,11 @@
     "static/media/salle-reunionB.jpg": "/coworking-casa/static/media/salle-reunionB.a6877f27d64e22b2df98.jpg",
     "static/media/transparent.jpg": "/coworking-casa/static/media/transparent.95e50b52f0f01f3db7ec.jpg",
     "index.html": "/coworking-casa/index.html",
-    "main.6f3be01a.js.map": "/coworking-casa/static/js/main.6f3be01a.js.map"
+    "main.3982bb5f.css.map": "/coworking-casa/static/css/main.3982bb5f.css.map",
+    "main.65606997.js.map": "/coworking-casa/static/js/main.65606997.js.map"
   },
   "entrypoints": [
-    "static/js/main.6f3be01a.js"
+    "static/css/main.3982bb5f.css",
+    "static/js/main.65606997.js"
   ]
 }
