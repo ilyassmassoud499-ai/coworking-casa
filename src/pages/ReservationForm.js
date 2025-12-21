@@ -11,75 +11,55 @@ const espaces = {
   "Open Space": 50,
 };
 
-function ReservationForm({ reservation }) {
+function ReservationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const reservations = useSelector(
-    state => state.reservations?.reservations || []
+  const currentReservation = useSelector(
+    state => state.reservations.currentReservation
   );
 
   const [form, setForm] = useState({
+    id: null,
     espace: "",
     date: "",
     debut: "",
     fin: "",
     nom: "",
     email: "",
-    personnes: 1,
+    personnes: "",
   });
 
-  const [success, setSuccess] = useState("");
-
   useEffect(() => {
-    if (reservation) setForm(reservation);
-  }, [reservation]);
+    if (currentReservation) {
+      setForm(currentReservation);
+    }
+  }, [currentReservation]);
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const checkOverlap = () => {
-    return reservations.some(r =>
-      r.id !== form.id &&
-      r.espace === form.espace &&
-      r.date === form.date &&
-      (
-        (form.debut >= r.debut && form.debut < r.fin) ||
-        (form.fin > r.debut && form.fin <= r.fin)
-      )
-    );
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (!form.espace || !form.date || !form.debut || !form.fin || !form.nom || !form.email || !form.personnes) {
-      alert("Tous les champs sont obligatoires !");
-      return;
-    }
-
-    if (checkOverlap()) {
-      alert("Cette plage horaire est déjà réservée !");
-      return;
-    }
-
-    const duree = parseInt(form.fin) - parseInt(form.debut);
+    const duree = form.fin - form.debut;
     const montant = duree * espaces[form.espace];
 
-    const data = { ...form, duree, montant, statut: "Confirmée" };
+    const data = {
+      ...form,
+      duree,
+      montant,
+      statut: "Confirmée",
+    };
 
-    if (reservation) {
+    if (currentReservation) {
       dispatch(updateReservation(data));
-      setSuccess("Réservation modifiée avec succès !");
     } else {
       dispatch(addReservation({ ...data, id: Date.now() }));
-      setSuccess("Réservation ajoutée avec succès !");
     }
 
-    setTimeout(() => {
-      navigate("/reservations");
-    }, 1500);
+    navigate("/reservations");
   };
 
   return (
@@ -88,41 +68,137 @@ function ReservationForm({ reservation }) {
         backgroundImage: `url(${formulaireJs})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
         minHeight: "100vh",
-        width: "100%",
       }}
+      className="d-flex align-items-center"
     >
-      <div className="container w-50 bg-light rounded shadow-2 mt-5 p-4">
-        <h2 className="text-success text-center mb-3">
-          {reservation ? "Modifier la réservation" : "Ajouter une réservation"}
-        </h2>
+      <div className="container my-5">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-8">
+            <div className="card shadow-lg p-4 p-md-5 rounded bg-light">
+              <h2 className="text-center mb-4">
+                {currentReservation ? "Modifier réservation" : "Ajouter réservation"}
+              </h2>
 
-        {success && (
-          <div className="alert alert-success text-center">
-            {success}
+              <form onSubmit={handleSubmit}>
+                <div className="row g-3">
+               
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="espace" className="form-label">Espace</label>
+                    <select
+                      name="espace"
+                      id="espace"
+                      className="form-select"
+                      value={form.espace}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Sélectionner un espace</option>
+                      {Object.keys(espaces).map(e => (
+                        <option key={e} value={e}>{e}</option>
+                      ))}
+                    </select>
+                  </div>
+
+            
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="date" className="form-label">Date</label>
+                    <input
+                      type="date"
+                      name="date"
+                      id="date"
+                      className="form-control"
+                      value={form.date}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+               
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="debut" className="form-label">Heure début </label>
+                    <input
+                      type="number"
+                      name="debut"
+                      id="debut"
+                      className="form-control"
+                      value={form.debut}
+                      onChange={handleChange}
+                      min="0"
+                      max="23"
+                      required
+                    />
+                  </div>
+
+                 
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="fin" className="form-label">Heure fin </label>
+                    <input
+                      type="number"
+                      name="fin"
+                      id="fin"
+                      className="form-control"
+                      value={form.fin}
+                      onChange={handleChange}
+                      min="0"
+                      max="23"
+                      required
+                    />
+                  </div>
+
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="nom" className="form-label">Nom du client</label>
+                    <input
+                      type="text"
+                      name="nom"
+                      id="nom"
+                      className="form-control"
+                      value={form.nom}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+              
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="email" className="form-label">Email du client</label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      className="form-control"
+                      value={form.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="personnes" className="form-label">Nombre de personnes</label>
+                    <input
+                      type="number"
+                      name="personnes"
+                      id="personnes"
+                      className="form-control"
+                      value={form.personnes}
+                      min="1"
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+            
+                <div className="mt-4 d-grid">
+                  <button className="btn btn-primary btn-lg">
+                    {currentReservation ? "Modifier" : "Ajouter"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <select name="espace" className="form-select mb-3" value={form.espace} onChange={handleChange} required>
-            <option value="">Sélectionner un espace</option>
-            {Object.keys(espaces).map(e => (
-              <option key={e} value={e}>{e}</option>
-            ))}
-          </select>
-
-          <input type="date" name="date" className="form-control mb-3" value={form.date} onChange={handleChange} required />
-          <input type="number" name="debut" placeholder="Heure début (0-23)" className="form-control mb-3" value={form.debut} onChange={handleChange} required />
-          <input type="number" name="fin" placeholder="Heure fin (0-23)" className="form-control mb-3" value={form.fin} onChange={handleChange} required />
-          <input type="text" name="nom" placeholder="Nom client" className="form-control mb-3" value={form.nom} onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Email client" className="form-control mb-3" value={form.email} onChange={handleChange} required />
-          <input type="number" name="personnes" placeholder="Nombre de personnes" className="form-control mb-3" value={form.personnes} onChange={handleChange} min="1" required />
-
-          <button type="submit" className="btn btn-primary w-100">
-            {reservation ? "Modifier" : "Ajouter"}
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );

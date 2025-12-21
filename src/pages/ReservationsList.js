@@ -1,20 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {updateReservation, deleteReservation } from "../redux/reservationsSlice";
+import { deleteReservation,setCurrentReservation,} from "../redux/reservationsSlice";
 
 function ReservationsList() {
-const reservations = useSelector(
-  state => state.reservations?.reservations || []
-);
+  const reservations = useSelector(
+    state => state.reservations?.reservations || []
+  );
 
   const dispatch = useDispatch();
 
   return (
-    <div className="container mt-5 ">
+    <div className="container mt-5 table-responsive ">
       <h2>Liste des Réservations</h2>
-      <Link to="/reservations/ajouter" className="btn btn-success mb-3">Ajouter une réservation</Link>
-      <table className="table table-striped">
+
+      <Link
+        to="/reservations/ajouter"
+        className="btn btn-success mb-3"
+        onClick={() => dispatch(setCurrentReservation(null))}
+      >
+        Ajouter une réservation
+      </Link>
+
+      <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th>Espace</th>
@@ -30,9 +38,10 @@ const reservations = useSelector(
             <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
           {reservations.map(r => (
-            <tr  key={r.id}>
+            <tr key={r.id}>
               <td>{r.espace}</td>
               <td>{r.date}</td>
               <td>{r.debut}</td>
@@ -44,9 +53,29 @@ const reservations = useSelector(
               <td>{r.montant} DH</td>
               <td>{r.statut}</td>
               <td>
-                <Link to={`/reservations/${r.id}`} className="btn btn-info btn-sm me-1">Voir</Link>
-                <Link to={`/reservations/ajouter`}onClick={() => dispatch(updateReservation(r.id))}  className="btn btn-warning btn-sm me-1">Modifier</Link>
-                <button className="btn btn-danger btn-sm" onClick={() => dispatch(deleteReservation(r.id))}>Supprimer</button>
+              
+                <Link
+                  to={`/reservations/${r.id}`}
+                  className="btn btn-info btn-sm me-1"
+                >
+                  Voir
+                </Link>
+
+             
+                <Link
+                  to="/reservations/ajouter"
+                  className="btn btn-warning btn-sm me-1"
+                  onClick={() => dispatch(setCurrentReservation(r))}
+                >
+                  Modifier
+                </Link>
+
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => dispatch(deleteReservation(r.id))}
+                >
+                  Supprimer
+                </button>
               </td>
             </tr>
           ))}

@@ -9,9 +9,9 @@ function ReservationDetail() {
   if (!reservation) return <div className="container mt-5"><h3>Réservation non trouvée</h3></div>;
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 table-responsive">
       <h2>Détail de la réservation</h2>
-      <table className="table table-bordered">
+      <table className="table table-striped table-bordered">
         <tbody>
           <tr><th>Espace</th><td>{reservation.espace}</td></tr>
           <tr><th>Date</th><td>{reservation.date}</td></tr>

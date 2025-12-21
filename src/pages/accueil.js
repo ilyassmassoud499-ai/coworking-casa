@@ -16,27 +16,32 @@ const Accueil = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
+      
        
       }}>
         
         
     <div className="container py-5">
+        <div className="row align-items-center">
 
-            <div className="d-flex  gap=3 justifie-content-between">
-            <div className="mt-3">
+            <div className="d-flex  gap-3 justify-content-between">
+            <div className="col-12 col-md-6 text-center text-md-start mb-4 mb-md-0">
                 <h2 className="text-dark">Bienvenue à CoWork Casa Reserver votre espace coworking facilement</h2>
                 <p>Bureau, Open Space et Salle de Reunion.</p>
                <Link to="/reservations/ajouter"> <button className="btn btn-primary">Reserver maintenant</button></Link>
             
             </div>
-            <div>
-                <img src={image2}     alt="" width={500} />
-            </div>
+                <div className="col-12 col-md-6 text-center">
+           
+                <img src={image2} className="img-fluid"     alt="" width={500} />
+                </div>
+          
 
             </div>
-                 <br/>
-            <br/>
+            </div>
+
+                   <br/>
+                   <br/>
         
             
             <div className="container ">

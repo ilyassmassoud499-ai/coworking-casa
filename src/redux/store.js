@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import reservationsReducer from "./reservationsSlice";
 
-
 const loadState = () => {
   try {
     const data = localStorage.getItem("reduxState");
@@ -10,7 +9,6 @@ const loadState = () => {
     return undefined;
   }
 };
-
 
 const saveState = (state) => {
   try {
@@ -24,7 +22,6 @@ export const store = configureStore({
   },
   preloadedState: loadState(),
 });
-
 
 store.subscribe(() => {
   saveState({

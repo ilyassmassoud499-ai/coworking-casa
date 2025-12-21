@@ -12,11 +12,12 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <Router>
-      <div className="d-flex flex-column min-vh-100">
+      <div className="d-flex flex-column min-vh-100 ">
 
         <Navbar />
 
-        <main className="flex-fill ">
+       <main className="flex-grow-1">
+
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/accueil" element={<Accueil />} />

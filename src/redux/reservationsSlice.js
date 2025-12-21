@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   reservations: [],
+  currentReservation: null,
 };
 
 const reservationsSlice = createSlice({
@@ -19,12 +20,17 @@ const reservationsSlice = createSlice({
       if (index !== -1) {
         state.reservations[index] = action.payload;
       }
+      state.currentReservation = null;
     },
 
     deleteReservation: (state, action) => {
       state.reservations = state.reservations.filter(
         r => r.id !== action.payload
       );
+    },
+
+    setCurrentReservation: (state, action) => {
+      state.currentReservation = action.payload;
     },
   },
 });
@@ -33,6 +39,7 @@ export const {
   addReservation,
   updateReservation,
   deleteReservation,
+  setCurrentReservation,
 } = reservationsSlice.actions;
 
 export default reservationsSlice.reducer;

@@ -9,12 +9,12 @@ function Planning() {
     e.preventDefault();}
 
   return (
-    <div className="container mt-5 bg-light">
+    <div className="container mt-5 bg-light ">
       <h2 className="text-warning">Planning Journalier</h2>
       {espaces.map(e => (
-        <div key={e} className="mb-4">
+        <div key={e} className="mb-4 table-responsive " >
           <h4 >{e}</h4>
-          < table  onSubmit={handleSubmit} className="table table-striped">
+          < table  onSubmit={handleSubmit} className="table table-striped table-bordered ">
             <thead>
               <tr>
                 <th>Date</th>
@@ -23,7 +23,7 @@ function Planning() {
                 <th>Nom client</th>
               </tr>
             </thead>
-            <tbody className="bg-warning">
+            <tbody  >
               {reservations.filter(r => r.espace === e).sort((a,b)=>a.date.localeCompare(b.date)).map(r => (
                 <tr  key={r.id}>
                   <td>{r.date}</td>
