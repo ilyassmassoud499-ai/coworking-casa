@@ -33,7 +33,7 @@ const Accueil = () => {
             </div>
                 <div className="col-12 col-md-6 text-center">
            
-                <img src={image2} className="img-fluid"     alt="" width={500} />
+                <img src={image2} className="img-fluid"     alt=""  />
                 </div>
           
 
