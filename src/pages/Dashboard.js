@@ -27,19 +27,11 @@ function Dashboard() {
   const espacePlusReserve = Object.entries(tauxOccupation).sort((a,b)=>parseInt(b[1])-parseInt(a[1]))[0]?.[0] || "Aucun";
 
   return (
-    <div  className="container mt-5">
+    <div  className="container mt-5 bg-light ">
       <h2>Dashboard</h2>
       <div className="row g-4 ">
-        <div className="col-md-3 mb-3">
-          <div className="card shadow-sm h-100 border-0 ">
-            <img src={revenuJ}  className="card-img-top"     />
-            <div className="card-body">
-              <h5 className="card-title">Revenu du jour</h5>
-              <p className="card-text">{revenuJour} DH</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-3">
+     
+        <div className="col-md-4 mb-3">
           <div className="card shadow-sm h-100 border-0   ">
              <img src={revenuT}  className="card-img-top"     />
             <div className="card-body">
@@ -48,7 +40,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-md-3 mb-3">
+        <div className="col-md-4 mb-3">
           <div className="card shadow-sm h-100 border-0  ">
             <img src={bureau} className="card-img-top"  />
             <div className="card-body">
@@ -57,7 +49,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-             <div className="col-md-3 mb-3">
+             <div className="col-md-4 mb-3">
           <div className="card shadow-sm h-100 border-0  ">
             <img src={reservation} className="card-img-top"  />
             <div className="card-body">
