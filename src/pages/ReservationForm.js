@@ -15,8 +15,8 @@ function ReservationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const currentReservation = useSelector(
-    state => state.reservations.currentReservation
+  const { reservations, currentReservation } = useSelector(
+    state => state.reservations
   );
 
   const [form, setForm] = useState({
@@ -30,6 +30,8 @@ function ReservationForm() {
     personnes: "",
   });
 
+  const [error, setError] = useState("");
+
   useEffect(() => {
     if (currentReservation) {
       setForm(currentReservation);
@@ -40,14 +42,49 @@ function ReservationForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const hasConflict = () => {
+    return reservations.some(r => {
+      if (
+        r.id === form.id ||
+        r.date !== form.date ||
+        r.espace !== form.espace
+      ) {
+        return false;
+      }
+
+      const debut1 = Number(form.debut);
+      const fin1 = Number(form.fin);
+      const debut2 = Number(r.debut);
+      const fin2 = Number(r.fin);
+
+      return debut1 < fin2 && fin1 > debut2;
+    });
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
+    setError("");
 
-    const duree = form.fin - form.debut;
+    const debut = Number(form.debut);
+    const fin = Number(form.fin);
+
+    if (debut >= fin) {
+      setError("L'heure de fin doit être supérieure à l'heure de début.");
+      return;
+    }
+
+    if (hasConflict()) {
+      setError("Conflit horaire : cet espace est déjà réservé à ce créneau.");
+      return;
+    }
+
+    const duree = fin - debut;
     const montant = duree * espaces[form.espace];
 
     const data = {
       ...form,
+      debut,
+      fin,
       duree,
       montant,
       statut: "Confirmée",
@@ -80,14 +117,19 @@ function ReservationForm() {
                 {currentReservation ? "Modifier réservation" : "Ajouter réservation"}
               </h2>
 
+              {error && (
+                <div className="alert alert-danger text-center">
+                  {error}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit}>
                 <div className="row g-3">
-               
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="espace" className="form-label">Espace</label>
+
+                  <div className="col-md-6">
+                    <label className="form-label">Espace</label>
                     <select
                       name="espace"
-                      id="espace"
                       className="form-select"
                       value={form.espace}
                       onChange={handleChange}
@@ -100,13 +142,11 @@ function ReservationForm() {
                     </select>
                   </div>
 
-            
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="date" className="form-label">Date</label>
+                  <div className="col-md-6">
+                    <label className="form-label">Date</label>
                     <input
                       type="date"
                       name="date"
-                      id="date"
                       className="form-control"
                       value={form.date}
                       onChange={handleChange}
@@ -114,44 +154,39 @@ function ReservationForm() {
                     />
                   </div>
 
-               
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="debut" className="form-label">Heure début </label>
+                  <div className="col-md-6">
+                    <label className="form-label">Heure début</label>
                     <input
                       type="number"
                       name="debut"
-                      id="debut"
                       className="form-control"
-                      value={form.debut}
-                      onChange={handleChange}
                       min="0"
                       max="23"
+                      value={form.debut}
+                      onChange={handleChange}
                       required
                     />
                   </div>
 
-                 
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="fin" className="form-label">Heure fin </label>
+                  <div className="col-md-6">
+                    <label className="form-label">Heure fin</label>
                     <input
                       type="number"
                       name="fin"
-                      id="fin"
                       className="form-control"
-                      value={form.fin}
-                      onChange={handleChange}
                       min="0"
                       max="23"
+                      value={form.fin}
+                      onChange={handleChange}
                       required
                     />
                   </div>
 
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="nom" className="form-label">Nom du client</label>
+                  <div className="col-md-6">
+                    <label className="form-label">Nom du client</label>
                     <input
                       type="text"
                       name="nom"
-                      id="nom"
                       className="form-control"
                       value={form.nom}
                       onChange={handleChange}
@@ -159,13 +194,11 @@ function ReservationForm() {
                     />
                   </div>
 
-              
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="email" className="form-label">Email du client</label>
+                  <div className="col-md-6">
+                    <label className="form-label">Email du client</label>
                     <input
                       type="email"
                       name="email"
-                      id="email"
                       className="form-control"
                       value={form.email}
                       onChange={handleChange}
@@ -173,28 +206,27 @@ function ReservationForm() {
                     />
                   </div>
 
-                
-                  <div className="col-12 col-md-6">
-                    <label htmlFor="personnes" className="form-label">Nombre de personnes</label>
+                  <div className="col-md-6">
+                    <label className="form-label">Nombre de personnes</label>
                     <input
                       type="number"
                       name="personnes"
-                      id="personnes"
                       className="form-control"
-                      value={form.personnes}
                       min="1"
+                      value={form.personnes}
                       onChange={handleChange}
                       required
                     />
                   </div>
+
                 </div>
 
-            
                 <div className="mt-4 d-grid">
                   <button className="btn btn-primary btn-lg">
                     {currentReservation ? "Modifier" : "Ajouter"}
                   </button>
                 </div>
+
               </form>
             </div>
           </div>

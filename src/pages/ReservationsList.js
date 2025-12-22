@@ -11,7 +11,7 @@ function ReservationsList() {
   const dispatch = useDispatch();
 
   return (
-    <div className="container mt-5 table-responsive ">
+    <div  className="container mt-5 table-responsive ">
       <h2>Liste des Réservations</h2>
 
       <Link
