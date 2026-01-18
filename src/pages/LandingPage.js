@@ -4,10 +4,7 @@ import formulaireJs from "../assets/formulaireJs.jpg"
 
 function LandingPage() {
   const navigate = useNavigate();
-  const equipe = [
-    { nom: "Ilyass Massoud"  },
-    { nom: "Ayoub Msaad" },
-  ];
+
 
   return (
        <div      style={{
@@ -26,20 +23,10 @@ function LandingPage() {
       <button className="btn btn-primary mb-5" onClick={() => navigate("/accueil")}>
         Accéder à l'application
       </button>
-      <div className="ms-auto">
-      <h2 className="text-warning">Notre équipe</h2>
-      <div className="row justify-content-center mt-5">
-        {equipe.map(m => (
-          <div key={m.nom} className="col-md-3 ms-4 ">
-             
-            <h4 class>{m.nom}</h4>
-          </div>
-          
-        ))}
-      </div>
+     
     </div>
     </div>
-          </div>
+        
 
   );
 }
